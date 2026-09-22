@@ -1,0 +1,7 @@
+{
+  "@@locale": "en",
+  "appTitle": "Medication Reference",
+  "@appTitle": {
+    "description": "Title of the application"
+  }
+}
