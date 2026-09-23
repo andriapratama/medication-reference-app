@@ -36,6 +36,9 @@ migrate_working_dir/
 # Generated localization files (dari flutter gen-l10n)
 lib/l10n/app_localizations*.dart
 
+# Generated code (dari build_runner: Hive adapters, dll)
+*.g.dart
+
 # Symbolication related
 app.*.symbols
 
