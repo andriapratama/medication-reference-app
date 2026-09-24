@@ -1,4 +1,20 @@
 {
   "@@locale": "id",
-  "appTitle": "Referensi Obat"
+  "appTitle": "Referensi Obat",
+  "medicationListTitle": "Daftar Obat",
+  "emptyStateMessage": "Obat tidak ditemukan",
+  "errorRetryButton": "Coba Lagi",
+  "medicationNameUnavailable": "Nama tidak tersedia",
+  "manufacturerUnavailable": "Produsen tidak diketahui",
+  "bottomNavMedications": "Obat",
+  "bottomNavFavorites": "Favorit",
+  "favoritesScreenTitle": "Favorit",
+  "favoritesComingSoon": "Halaman favorit segera hadir",
+  "searchHint": "Cari nama obat, merek, atau bahan aktif",
+  "searchClear": "Hapus pencarian",
+  "errorNetwork": "Tidak ada koneksi internet. Periksa koneksi lalu coba lagi.",
+  "errorServer": "Server sedang bermasalah. Silakan coba lagi nanti.",
+  "errorRateLimit": "Terlalu banyak permintaan. Tunggu sebentar lalu coba lagi.",
+  "errorInvalidData": "Data yang diterima tidak dapat dibaca.",
+  "errorUnknown": "Terjadi kesalahan. Silakan coba lagi."
 }

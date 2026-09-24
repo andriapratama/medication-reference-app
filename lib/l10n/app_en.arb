@@ -3,5 +3,69 @@
   "appTitle": "Medication Reference",
   "@appTitle": {
     "description": "Title of the application"
+  },
+  "medicationListTitle": "Medications",
+  "@medicationListTitle": {
+    "description": "Title of the medication list screen"
+  },
+  "emptyStateMessage": "No medications found",
+  "@emptyStateMessage": {
+    "description": "Shown when a list request succeeds but returns no results"
+  },
+  "errorRetryButton": "Retry",
+  "@errorRetryButton": {
+    "description": "Button label to retry a failed request"
+  },
+  "medicationNameUnavailable": "Name unavailable",
+  "@medicationNameUnavailable": {
+    "description": "Placeholder when brand/generic name is missing from openFDA data"
+  },
+  "manufacturerUnavailable": "Manufacturer unknown",
+  "@manufacturerUnavailable": {
+    "description": "Placeholder when manufacturer name is missing from openFDA data"
+  },
+  "bottomNavMedications": "Medications",
+  "@bottomNavMedications": {
+    "description": "Bottom navigation label for the medication list tab"
+  },
+  "bottomNavFavorites": "Favorites",
+  "@bottomNavFavorites": {
+    "description": "Bottom navigation label for the favorites tab"
+  },
+  "favoritesScreenTitle": "Favorites",
+  "@favoritesScreenTitle": {
+    "description": "Title of the favorites screen"
+  },
+  "favoritesComingSoon": "Favorites screen is coming soon",
+  "@favoritesComingSoon": {
+    "description": "Placeholder shown until the favorites feature is built"
+  },
+  "searchHint": "Search by name, brand, or active ingredient",
+  "@searchHint": {
+    "description": "Placeholder text in the medication search field"
+  },
+  "searchClear": "Clear search",
+  "@searchClear": {
+    "description": "Tooltip/accessibility label for the button that clears the search field"
+  },
+  "errorNetwork": "No internet connection. Check your connection and try again.",
+  "@errorNetwork": {
+    "description": "Shown for NetworkFailure"
+  },
+  "errorServer": "The server is having problems. Please try again later.",
+  "@errorServer": {
+    "description": "Shown for ServerFailure (5xx)"
+  },
+  "errorRateLimit": "Too many requests. Please wait a moment and try again.",
+  "@errorRateLimit": {
+    "description": "Shown for RateLimitFailure (HTTP 429)"
+  },
+  "errorInvalidData": "The data received could not be read.",
+  "@errorInvalidData": {
+    "description": "Shown for InvalidDataFailure"
+  },
+  "errorUnknown": "Something went wrong. Please try again.",
+  "@errorUnknown": {
+    "description": "Shown for UnknownFailure"
   }
 }
