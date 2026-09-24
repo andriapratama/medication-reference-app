@@ -12,6 +12,11 @@ class Debouncer {
     _timer = Timer(delay, action);
   }
 
+  /// Cancels a pending call without preventing future [run] calls.
+  void cancel() {
+    _timer?.cancel();
+  }
+
   void dispose() {
     _timer?.cancel();
   }
