@@ -16,5 +16,16 @@
   "errorServer": "Server sedang bermasalah. Silakan coba lagi nanti.",
   "errorRateLimit": "Terlalu banyak permintaan. Tunggu sebentar lalu coba lagi.",
   "errorInvalidData": "Data yang diterima tidak dapat dibaca.",
-  "errorUnknown": "Terjadi kesalahan. Silakan coba lagi."
+  "errorUnknown": "Terjadi kesalahan. Silakan coba lagi.",
+  "detailBack": "Kembali",
+  "detailAddFavorite": "Tambah ke favorit",
+  "detailRemoveFavorite": "Hapus dari favorit",
+  "badgeOtc": "OTC",
+  "badgePrescription": "Resep",
+  "sectionPurpose": "Kegunaan",
+  "sectionDosage": "Dosis & Cara Pakai",
+  "sectionActiveIngredients": "Bahan Aktif",
+  "sectionWarnings": "Peringatan",
+  "sectionInactiveIngredients": "Bahan Tidak Aktif",
+  "medicalDisclaimer": "Informasi ini untuk keperluan referensi teknis, bukan pengganti saran medis profesional."
 }

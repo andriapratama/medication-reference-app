@@ -67,5 +67,49 @@
   "errorUnknown": "Something went wrong. Please try again.",
   "@errorUnknown": {
     "description": "Shown for UnknownFailure"
+  },
+  "detailBack": "Back",
+  "@detailBack": {
+    "description": "Back button label on the detail screen"
+  },
+  "detailAddFavorite": "Add to favorites",
+  "@detailAddFavorite": {
+    "description": "Tooltip for the star button when the medication is not a favorite"
+  },
+  "detailRemoveFavorite": "Remove from favorites",
+  "@detailRemoveFavorite": {
+    "description": "Tooltip for the star button when the medication is a favorite"
+  },
+  "badgeOtc": "OTC",
+  "@badgeOtc": {
+    "description": "Badge for over-the-counter medications"
+  },
+  "badgePrescription": "Rx",
+  "@badgePrescription": {
+    "description": "Badge for prescription-only medications"
+  },
+  "sectionPurpose": "Purpose",
+  "@sectionPurpose": {
+    "description": "Detail section title for purpose / indications and usage"
+  },
+  "sectionDosage": "Dosage & Administration",
+  "@sectionDosage": {
+    "description": "Detail section title for dosage and administration"
+  },
+  "sectionActiveIngredients": "Active Ingredients",
+  "@sectionActiveIngredients": {
+    "description": "Detail section title for active ingredients"
+  },
+  "sectionWarnings": "Warnings",
+  "@sectionWarnings": {
+    "description": "Detail section title for warnings"
+  },
+  "sectionInactiveIngredients": "Inactive Ingredients",
+  "@sectionInactiveIngredients": {
+    "description": "Detail section title for inactive ingredients"
+  },
+  "medicalDisclaimer": "This information is for technical reference only and is not a substitute for professional medical advice.",
+  "@medicalDisclaimer": {
+    "description": "Disclaimer pinned at the bottom of the detail screen"
   }
 }
