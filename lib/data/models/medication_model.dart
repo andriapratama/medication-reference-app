@@ -47,7 +47,10 @@ class MedicationModel {
 
     return MedicationModel(
       id: (json['id'] as String?) ?? splId ?? '',
-      brandName: _firstString(openfda['brand_name']),
+      // Many labels have an empty `openfda`; fall back to the product name in the SPL text.
+      brandName:
+          _firstString(openfda['brand_name']) ??
+          _nameFromSplElements(_firstString(json['spl_product_data_elements'])),
       genericName: _firstString(openfda['generic_name']),
       manufacturer: _firstString(openfda['manufacturer_name']),
       purpose: _firstString(json['purpose']),
@@ -66,6 +69,27 @@ class MedicationModel {
       return value.first as String;
     }
     return null;
+  }
+
+  /// Extracts the leading product name, e.g. "Ephed 60 Pseudoephedrine PSEUDOEPHEDRINE ..." -> "Ephed 60 Pseudoephedrine".
+  static String? _nameFromSplElements(String? text) {
+    if (text == null) return null;
+    final words = text.trim().split(RegExp(r'\s+'));
+    if (words.first.isEmpty) return null;
+
+    bool isAllCaps(String w) => w.contains(RegExp(r'[A-Za-z]')) && w == w.toUpperCase();
+    final startsWithCaps = isAllCaps(words.first);
+    final seen = {words.first.toLowerCase()};
+    final name = [words.first];
+
+    for (final word in words.skip(1)) {
+      // Stop once the ingredient list starts: a repeated word, an ALL-CAPS or comma word, or too long.
+      if (name.length >= 5 || seen.contains(word.toLowerCase())) break;
+      if (word.endsWith(',') || (!startsWithCaps && isAllCaps(word))) break;
+      seen.add(word.toLowerCase());
+      name.add(word);
+    }
+    return name.join(' ').replaceAll(RegExp(r'[,;]+$'), '');
   }
 
   Medication toEntity() {
