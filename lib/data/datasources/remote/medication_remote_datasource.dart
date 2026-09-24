@@ -42,16 +42,33 @@ class MedicationRemoteDataSourceImpl implements MedicationRemoteDataSource {
     required int limit,
     required int skip,
   }) async {
-    final response = await dio.get(
-      ApiConstants.baseUrl,
-      queryParameters: {
-        'search':
-            'openfda.brand_name:"$query"* OR openfda.generic_name:"$query"*',
-        'limit': limit,
-        'skip': skip,
-      },
-    );
-    return _parseResults(response.data);
+    // Keep only letters/digits so user input can't break the openFDA query syntax.
+    final words = query
+        .toLowerCase()
+        .split(RegExp(r'[^a-z0-9]+'))
+        .where((w) => w.isNotEmpty)
+        .toList();
+    if (words.isEmpty) return [];
+
+    // Prefix match on every word, e.g. "advil liqui" -> (advil* AND liqui*).
+    final terms = '(${words.map((w) => '$w*').join(' AND ')})';
+    try {
+      final response = await dio.get(
+        ApiConstants.baseUrl,
+        queryParameters: {
+          'search': 'openfda.brand_name:$terms '
+              'openfda.generic_name:$terms '
+              'openfda.substance_name:$terms',
+          'limit': limit,
+          'skip': skip,
+        },
+      );
+      return _parseResults(response.data);
+    } on DioException catch (e) {
+      // openFDA answers 404 when nothing matches; treat it as an empty result.
+      if (e.response?.statusCode == 404) return [];
+      rethrow;
+    }
   }
 
   @override
