@@ -26,6 +26,11 @@ class MedicationModel {
   final String? warnings;
   @HiveField(8)
   final List<String> activeIngredients;
+  @HiveField(9)
+  final String? productType;
+  // defaultValue keeps favorites saved before this field existed readable.
+  @HiveField(10, defaultValue: <String>[])
+  final List<String> inactiveIngredients;
 
   const MedicationModel({
     required this.id,
@@ -37,6 +42,8 @@ class MedicationModel {
     this.dosageAndAdministration,
     this.warnings,
     this.activeIngredients = const [],
+    this.productType,
+    this.inactiveIngredients = const [],
   });
 
   /// Parses one openFDA drug label entry, tolerating missing `openfda` fields.
@@ -56,10 +63,14 @@ class MedicationModel {
       purpose: _firstString(json['purpose']),
       indicationsAndUsage: _firstString(json['indications_and_usage']),
       dosageAndAdministration: _firstString(json['dosage_and_administration']),
-      warnings: _firstString(json['warnings']),
-      activeIngredients:
-          (json['active_ingredient'] as List?)?.whereType<String>().toList() ??
-          const [],
+      // Prescription labels use `warnings_and_cautions` or `boxed_warning` instead of `warnings`.
+      warnings:
+          _firstString(json['warnings']) ??
+          _firstString(json['warnings_and_cautions']) ??
+          _firstString(json['boxed_warning']),
+      activeIngredients: _stringList(json['active_ingredient']),
+      productType: _firstString(openfda['product_type']),
+      inactiveIngredients: _stringList(json['inactive_ingredient']),
     );
   }
 
@@ -71,13 +82,17 @@ class MedicationModel {
     return null;
   }
 
+  static List<String> _stringList(dynamic value) =>
+      (value as List?)?.whereType<String>().toList() ?? const [];
+
   /// Extracts the leading product name, e.g. "Ephed 60 Pseudoephedrine PSEUDOEPHEDRINE ..." -> "Ephed 60 Pseudoephedrine".
   static String? _nameFromSplElements(String? text) {
     if (text == null) return null;
     final words = text.trim().split(RegExp(r'\s+'));
     if (words.first.isEmpty) return null;
 
-    bool isAllCaps(String w) => w.contains(RegExp(r'[A-Za-z]')) && w == w.toUpperCase();
+    bool isAllCaps(String w) =>
+        w.contains(RegExp(r'[A-Za-z]')) && w == w.toUpperCase();
     final startsWithCaps = isAllCaps(words.first);
     final seen = {words.first.toLowerCase()};
     final name = [words.first];
@@ -112,6 +127,12 @@ class MedicationModel {
       dosageAndAdministration: dosageAndAdministration,
       warnings: warnings,
       activeIngredients: activeIngredients,
+      inactiveIngredients: inactiveIngredients,
+      type: switch (productType?.toUpperCase()) {
+        final t? when t.contains('OTC') => MedicationType.otc,
+        final t? when t.contains('PRESCRIPTION') => MedicationType.prescription,
+        _ => null,
+      },
       isFavorite: isFavorite,
     );
   }
@@ -128,6 +149,12 @@ class MedicationModel {
       dosageAndAdministration: detail.dosageAndAdministration,
       warnings: detail.warnings,
       activeIngredients: detail.activeIngredients,
+      productType: switch (detail.type) {
+        MedicationType.otc => 'HUMAN OTC DRUG',
+        MedicationType.prescription => 'HUMAN PRESCRIPTION DRUG',
+        null => null,
+      },
+      inactiveIngredients: detail.inactiveIngredients,
     );
   }
 }
